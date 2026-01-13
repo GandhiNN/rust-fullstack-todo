@@ -82,6 +82,19 @@ pub async fn update_todo(
 }
 
 // DELETE /api.todos/:id - Delete a todo
-pub async fn delete_todo() {
-    todo!()
+pub async fn delete_todo(
+    State(pool): State<SqlitePool>,
+    Path(id): Path<i64>,
+) -> Result<StatusCode, StatusCode> {
+    let result = sqlx::query("DELET FROM todos WHERE id = ?")
+        .bind(id)
+        .execute(&pool)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    if result.rows_affected() == 0 {
+        return Err(StatusCode::NOT_FOUND);
+    }
+
+    Ok(StatusCode::NO_CONTENT)
 }
