@@ -1,9 +1,11 @@
 use sqlx::{SqlitePool, sqlite::SqlitePoolOptions};
 
+const DB_URL: &str = "sqlite:////home/ngandhi/study/rust/rust-fullstack-todo/backend/todos.db";
+
 pub async fn init_db() -> SqlitePool {
     let pool = SqlitePoolOptions::new()
         .max_connections(5)
-        .connect("sqlite::todos.db")
+        .connect(DB_URL)
         .await
         .expect("Failed to connect to database");
 
