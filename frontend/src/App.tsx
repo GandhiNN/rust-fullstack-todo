@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { todoApi } from './api';
 import { Todo } from './types';
+import './App.css';
 
 const App: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
